@@ -123,12 +123,6 @@ exports.BattleScripts = {
 				baseSignatureMove: 'watermirror', signatureMove: "Water Mirror",
 				evs: {hp:4, atk:252, spe:252}, nature: 'Jolly',
 			},
-			'%snow': {
-				species: 'Shaymin-Sky', ability: 'Fury of Nature', item: 'Life Orb',
-				moves: ['airslash', 'seedflare', 'earthpower', 'hiddenpowerice'],
-				baseSignatureMove: 'windblades', signatureMove: "Wind Blades ",
-				evs: {hp:4, spa:252, spe:252}, nature: 'Timid',
-			},
 			'%Combo Breaker': {
 				species: 'Gardevoir-Mega', ability: 'Combo Breaker', item: 'Assault Vest', gender: 'Male', shiny: true,
 				moves: ['focusblast', 'psyshock', 'shadowball'],
@@ -165,12 +159,12 @@ exports.BattleScripts = {
 				baseSignatureMove: 'gottem', signatureMove: "GOTTEM",
 				evs: {atk:252, spa:4, spe:252}, nature: 'naive',
 			},
-		/*	'+Memeing': {
+			/*'+Skyla (Full)': {
 				species: 'Sylveon', ability: 'Uncompetitive', item: 'Life Orb',
 				moves: ['shadowball', 'acupuncture', 'wish'],
 				baseSignatureMove: 'ebat', signatureMove: "/ebat",
 				evs: {hp:252, spa:232, spe:20}, nature: 'Modest',
-			}, */
+			},*/
 			'+Pegasus Jane': {
 				species: 'Milotic', ability: 'Goddess of Seas', item: 'Leftovers', gender: 'F',
 				moves: ['scald', 'toxic', 'rest'],
@@ -183,7 +177,13 @@ exports.BattleScripts = {
 				baseSignatureMove: 'thirstysam', signatureMove: "Thirsty Sam",
 				evs: {atk:252, spd: 4, spe:252}, nature: 'jolly',
 			},
-			'+St Might Fall': {
+			'+snow': {
+				species: 'Shaymin-Sky', ability: 'Fury of Nature', item: 'Life Orb',
+				moves: ['airslash', 'seedflare', 'earthpower', 'hiddenpowerice'],
+				baseSignatureMove: 'windblades', signatureMove: "Wind Blades ",
+				evs: {hp:4, spa:252, spe:252}, nature: 'Timid',
+			},
+			'+St SkyMFall': {
 				species: 'Archeops', ability: 'Falling Skies', item: 'Leftovers', gender: '',
 				moves: ['uturn', 'bravebird', 'stoneedge'],
 				baseSignatureMove: 'gitgudfam', signatureMove: "Git Gud Fam",
@@ -195,18 +195,20 @@ exports.BattleScripts = {
 				baseSignatureMove: 'serverbreak', signatureMove: "Server Break",
 				evs: {atk:252, spa:4, spe:252}, nature: 'naive',
 			},
-			' Mіdnight Prоf ΕХΟ': {
+			// no longer staff...
+			/*' Mіdnight Prоf ΕХΟ': {
 				species: 'Umbreon', ability: 'Twilight Shield', item: 'Leftovers', gender: 'F', shiny: true,
 				moves: ['wish', 'curse', 'protect'],
 				baseSignatureMove: 'darkcausatum', signatureMove: "Dark Causatum",
 				evs: {hp: 252, spd: 252, def: 4}, nature: 'careful',
-			},
-			' Wаndo': {
+			},*/
+			// no longer staff
+			/*' Wаndo': {
 				species: 'Pichu', ability: 'Memes', item: 'Choice band', gender: 'M',
 				moves: ['harden', 'splash', 'celebrate'],
 				baseSignatureMove: 'nuke', signatureMove: "NUKE ",
 				evs: {hp:4, atk:252, spe:252}, nature: 'adamant',
-			},
+			},*/
 		};
 		// Generate the team randomly.
 		let pool = Object.keys(sets).randomize();

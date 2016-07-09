@@ -17100,7 +17100,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[anim]airslash');
 		},
 		onHit: function (target, source, move) {
-			this.add('c|%snow|PREPARE FOR HAX');
+			this.add('c|+snow|PREPARE FOR HAX');
 		},
 		onAfterMoveSecondarySelf: function (source, target, move) {
 			if (source && source !== target && move && move.category !== 'Status' && !move.ohko) {
@@ -17308,9 +17308,9 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Steel",
 	},
-	//Memeing
-	//Midnight Prof EXO
-	"darkcausatum": {
+	//Skyla (Full)
+	//Midnight Prof EXO // no longer staff
+	/*"darkcausatum": {
 		isNonstandard: true,
 		accuracy: 100,
 		basePower:  80,
@@ -17348,7 +17348,7 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Dark",
-	},
+	},*/
 	//Pegasus Jane
 	"aquaticlight": {
 		isNonstandard: true,
@@ -17447,7 +17447,7 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Dark",
 	},
-	//skymightfall
+	//+St SkyMFall
 	"gitgudfam": {
 		isNonstandard: true,
 		accuracy: true,
@@ -17472,7 +17472,8 @@ exports.BattleMovedex = {
 	},
 	//honorary mentions
 	//Wando
-	"nuke": {
+	// no longer staff
+	/*"nuke": {
 		accuracy: 100,
 		basePower: 350,
 		category: "Physical",
@@ -17492,11 +17493,11 @@ exports.BattleMovedex = {
 	/*	onHit: function (target, source, move) {
 			this.add('c|&Wаndo|');
 		}, */
-		secondary:	{
+		/*secondary:	{
 			chance: 100,
 			status: 'par',
 		},
 		target: "allAdjacent",
 		type: "Electric",
-	},
+	},*/
 };

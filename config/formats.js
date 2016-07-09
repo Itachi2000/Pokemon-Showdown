@@ -978,7 +978,7 @@ exports.Formats = [
 				this.add('-start', pokemon, 'typechange', 'Water/Fairy');
 				pokemon.types = ["Water", "Fairy"];
 			}
-			if (name === 'memeing' && !pokemon.illusion) {
+			if (name === 'skylafull' && !pokemon.illusion) {
 				this.add('-start', pokemon, 'typechange', 'Fairy/Fighting');
 				pokemon.types = ["Fairy", "Fighting"];
 			}
@@ -1049,7 +1049,7 @@ exports.Formats = [
 				this.add('c|%Master Float|/me flops in');
 			}
 			if (name === 'snow') {
-				this.add('c|%snow|How lucky do you think you are? :o');
+				this.add('c|+snow|How lucky do you think you are? :o');
 			}
 			if (name === 'superjeenius') {
 				this.add('c|%SuperJeenius|Hello gentle and ladysman!');
@@ -1076,9 +1076,9 @@ exports.Formats = [
 			if (name === 'kre8noyz') {
 				this.add('c|+Kre8noyz|Someone called my house and told my wife some things about fuckn, and I don\'t like that....');
 			}
-			if (name === 'mdnightprf') {
+			/*if (name === 'mdnightprf') { // no longer staff
 				this.add('raw|<div class="chat"><small>+</small><button name="parseCommand" value="/user Midnight Prof Exo" style="background:none;border:0;padding:0 5px 0 0;font-family:Verdana,Helvetica,Arial,sans-serif;font-size:9pt;cursor:pointer"><b><font color="#ED3F68">Midnight Prof Exo: </font></b></button>Here I come little boys<em class="mine"><img src="http://i.imgur.com/hSzqy5z.png?1" title="feelsjig" height="30" width="30" /></em></div>');
-			}
+			}*/
 			if (name === 'phoenixtana') {
 				this.add('c|+Phoenix Tana|You have been blessed by her rain.');
 			}
@@ -1092,9 +1092,9 @@ exports.Formats = [
 				this.add('c|+Sky Might Fall|');
 			} */
 			// honorary mentions
-			if (name === 'wаndo') {
+			/*if (name === 'wаndo') { // no longer staff
 				this.add('c|Wаndo|;3; </3');
-			}
+			}*/
 		},
 		/*
 		// Here we deal with some special mechanics due to custom sets and moves.
@@ -1197,7 +1197,7 @@ exports.Formats = [
 				this.add('c|%Master Float|/me stopped flopping ;-;');
 			}
 			if (name === 'snow') {
-				this.add('c|%snow|Aw man,  I guess I wasn\'t lucky enough! D:');
+				this.add('c|+snow|Aw man,  I guess I wasn\'t lucky enough! D:');
 			}
 			if (name === 'superjeenius') {
 				this.add('c|%SuperJeenius|"PSHSHSHSHSSHSHSS" - Krabby');
@@ -1224,9 +1224,9 @@ exports.Formats = [
 			if (name === 'kre8noyz') {
 				this.add('c|+Kre8noyz|I blame Wolfy for this PUTO winning');
 			}
-			if (name === 'mdnightprf') {
+			/*if (name === 'mdnightprf') { // no longer staff
 				this.add('c|+Midnight Prof Exo|H-How could you do this to your Senpai ;~;');
-			}
+			}*/
 			if (name === 'pegasusjane') {
 				this.add('raw|<div class="chat"><small>+</small><button name="parseCommand" value="/user Pegasus Jane" style="background:none;border:0;padding:0 5px 0 0;font-family:Verdana,Helvetica,Arial,sans-serif;font-size:9pt;cursor:pointer"><b><font color="#D83579">Pegasus Jane: </font></b></button>Wow, you\'re rude.<em class="mine"><img src="http://i.imgur.com/RIOKSJ3.gif" title="feelsspl" height="30" width="30" /></em></div>');
 			}
@@ -1304,7 +1304,7 @@ exports.Formats = [
 				this.add('c|%Master Float|/me flops out');
 			}
 			if (name === 'snow') {
-				this.add('c|%snow|Luck is just not on my side today, isn\'t it?');
+				this.add('c|+snow|Luck is just not on my side today, isn\'t it?');
 			}
 			if (name === 'superjeenius') {
 				this.add('c|%SuperJeenius|I\'ll play with you some other day.');
@@ -1331,9 +1331,9 @@ exports.Formats = [
 			if (name === 'kre8noyz') {
 				this.add('c|+Kre8noyz|QUE PUTO ERES!!!');
 			}
-			if (name === 'mdnightprf') {
+			/*if (name === 'mdnightprf') { // no longer staff
 				this.add('c|+Midnight Prof Exo|I\'ll be back for you my pretties.');
-			}
+			}*/
 			if (name === 'pegasusjane') {
 				this.add('c|+Pegasus Jane|Return to the ocean and heal!');
 			}

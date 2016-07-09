@@ -4070,9 +4070,9 @@ exports.BattleAbilities = {
 		id: "sanic",
 		name: "Sanic",
 	 },
-	//Memeing
-	//Midnight Prof EXO
-	"twilightshield": {
+	//Skyla (Full)
+	//Midnight Prof EXO // no longer staff
+	/*"twilightshield": {
 		isNonstandard: true,
 		onCriticalHit: false,
 		onTryHitPriority: 1,
@@ -4099,7 +4099,7 @@ exports.BattleAbilities = {
 		},
 		id: "twilightshield",
 		name: "Twilight Shield",
-	},
+	},*/
 	//Pegasus jane
 	"goddessofseas": {
 		isNonstandard: true,
@@ -4215,7 +4215,8 @@ exports.BattleAbilities = {
 	},
 	//honorary mentions
 	//Wando
-	"memes": {
+	// no longer staff
+	/*"memes": {
 		isNonstandard: true,
 		onStart: function (pokemon, source) {
 			this.boost({atk: 6});
@@ -4241,5 +4242,5 @@ exports.BattleAbilities = {
 		},
 		id: "memes",
 		name: "memes",
-	},
+	},*/
 };
