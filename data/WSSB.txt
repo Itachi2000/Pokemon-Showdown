@@ -1,11 +1,11 @@
-Jd - Unown - Choice Specs
-- Ability: I'm not staff - Dies on entry to battle, sets 3 layers of spikes and rocks 
+jd - Unown - Choice Specs
+- Ability: I'm not staff - Dies on entry to battle, sets 3 layers of spikes and rocks
 - Move: I'm not supposed to be here - special explosion
 - Movepool:  Hidden Power
 
-~Kanabae - Mega-Mawile - Leftovers 
+~Kanabae - Mega-Mawile - Leftovers
 - Ability: Guard Skill: Harmonics: Illusion, Protean, Unaware, Huge Power
-- Move: Guard Skill: Hand Sonic - Physical 100 BP 100% Accurate Fairy type move that deals damage based on Special Defense(opposite of psyshock) with 30% chance to flinch and raises speed by 2 
+- Move: Guard Skill: Hand Sonic - Physical 100 BP 100% Accurate Fairy type move that deals damage based on Special Defense(opposite of psyshock) with 30% chance to flinch and raises speed by 2
 - Movepool: Meteor Mash, Earthquake, Sucker Punch
 
 ~Tailz - Arcanine - Leftovers
@@ -23,7 +23,7 @@ Jd - Unown - Choice Specs
 - Move: Nuzzle, Knock off, Thunderbolt
 - Movepool: Don't touch me kings shield and raise stats expect evasion
 
-@Alpha Ninja - Weedle - Safety Goggles 
+@Alpha Ninja - Weedle - Safety Goggles
 - Ability: 420 Blaze It - 2.5x SpA and speed boost
 - Move: Meme Quake (100 power special earth move that paras)
 - Movepool: Protect, Bug Buzz, Sludge Wave
@@ -33,12 +33,12 @@ Jd - Unown - Choice Specs
 - Move: Meme Dream - Snatch + Defog + Light Screen, using snatch's priority
 - Movepool: Thunderbolt, Roost, Heat Wave
 
-@St. Sky M Fall, - Archeops  
-- Ability: Falling Skies - When the pokemon enters the battlefield it faints along with the opposing pokemon 
+@St. Sky M Fall, - Archeops
+- Ability: Falling Skies - When the pokemon enters the battlefield it faints along with the opposing pokemon
 - Move: ITS A KAMIKAZE
 - Movepool: ITS A KAMIKAZE
 
-@Rabinov - Scyther - Eviolite 
+@Rabinov - Scyther - Eviolite
 - Ability: Dread Armour - All contact moves have a 20% chance to inflict a random status effect; all status effects will heal Scyther for 12.5% HP per turn; +2 defences on switch-in.
 - Move: Miasmic Strike - Removes all buffs (Stat Increase, Aqua Ring, Flash Fire, etc.) from the opponent, 50BP Contact Bug-Type move, hits 3 times. Each time will inflict a random status effect (so it can stack, IE if Confuse is the first hit then Paralysis on the second hit will trigger also)
 - Movepool: Megahorn, Bolt Strike, Crabhammer, Cross Chop, Brave Bird, Head Smash, Flare Blitz, Roost
@@ -50,7 +50,7 @@ Jd - Unown - Choice Specs
 
 @viktria - Banette-Mega - brightpowder
 - Ability: Marionette's Mayhem - Gains Shadow Tag & Prankster, +4 Spe, +4 Def, auto-uses Curse & Wish on switchin. Ghost added to opponent's typing.
-- Move: Notice Me, Senpai ❤ ~ ! Ignores Safeguard. This move receives Prankster benefits. It Confuses, Paralyses (including Ground) and uses Attract successfully on the opponent (lasts beyond switchouts), regardless of the opponent's gender (or lack of). SpD and Def of opponent drops by 1.  
+- Move: Notice Me, Senpai ❤ ~ ! Ignores Safeguard. This move receives Prankster benefits. It Confuses, Paralyses (including Ground) and uses Attract successfully on the opponent (lasts beyond switchouts), regardless of the opponent's gender (or lack of). SpD and Def of opponent drops by 1.
 - Movepool: Frustration, Spiky Shield, Shadow Force
 
 %Alan KH - Venusaur-Mega - Big root
@@ -66,7 +66,7 @@ Jd - Unown - Choice Specs
 %Chief Sokka - Chansey -  Eviolite
 - Ability: Pain Killers - +1 Special Defense + Fur Coat
 - Move: Clumsy Surgeon- Seismic toss and Paralyzes the opponent and has a 20% chance of raising or Decrease a random stat.
-- Movepool: Heal Bell, soft boiled, Psychic  
+- Movepool: Heal Bell, soft boiled, Psychic
 
 %Emg TechP Volco - Volcanion - Assault Vest
 - Ability: Volcanic Ash - Levitate, Limber, Adaptability, Magic Bounce, +2 spe +1 spa
@@ -88,8 +88,8 @@ Jd - Unown - Choice Specs
 - Move: Dragon's Revenge - The user of this move hits an attack towards the opponent's pokemon with a power of 120. There is a 10% chance that the user will gain 1.5x Attack and Speed.
 - Movepool: Flare Blitz, Roost, Fire Punch, Dragon Dance, Dragon Claw, Outrage, Earthquake, Shadow Claw, Double Edge, Protect
 
-%St. Sandman - Landorus-I - Life Orb 
-- Ability: Gods Force - Sheer force + Full Gravity (Ground type moves hit flying levitate and balloon mons) 
+%St. Sandman - Landorus-I - Life Orb
+- Ability: Gods Force - Sheer force + Full Gravity (Ground type moves hit flying levitate and balloon mons)
 - Move: Anti Gravity Fissure ( 110 pwr Ground type move , hits flying and levitate pokemon with 1.25 X greater power , 10% chance of lowering opponents sp.def)
 - Movepool:  Rock Polish , Sludge Wave , Focus Blast
 
@@ -148,6 +148,6 @@ Jd - Unown - Choice Specs
 - Move: Server Break: Dark type, 140 base power, has inverse effectiveness, nullifies the foe's ability (Physical, non-contact), 6.9% recoil
 - Movepool: Megahorn, V-Create, Boomburst
  Wаndov - Pichu-Spiky-Eared - Choice Band
-- Ability: memes - on switch in get +6 attack but your hp drops to 1%. also get magic guard and shadow tag. 
+- Ability: memes - on switch in get +6 attack but your hp drops to 1%. also get magic guard and shadow tag.
 - Move: NUKE - Explosion but with 350 power and + 2 priority also causes paralasys if doesnt kill.
 - Movepool: harden, splash, celebrate

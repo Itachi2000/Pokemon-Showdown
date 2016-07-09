@@ -9,7 +9,7 @@ exports.BattleScripts = {
 		// Hardcoded sets of the available Pokemon.
 		let sets = {
 			// Admins.
-			' Jd': {
+			' jd': {
 				species: 'Unown', ability: 'I\'m Not Staff', item: 'Choice Specs', gender: '',
 				moves: ['Hidden Power'],
 				baseSignatureMove: 'imnotsupposedtobehere', signatureMove: "I'm not supposed to be here",

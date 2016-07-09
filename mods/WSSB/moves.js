@@ -16382,8 +16382,8 @@ exports.BattleMovedex = {
 		contestType: "Cute",
 	},
 	//custom moves for wssb
-	//admins + Jd
-	//Jd
+	//admins + jd
+	//jd
 	"imnotsupposedtobehere": {
 		accuracy: true,
 		basePower: 0,
@@ -16401,7 +16401,7 @@ exports.BattleMovedex = {
 			this.attrLastMove('[anim]explosion');
 		},
 		onHit: function (target, source, move) {
-			this.add('c|Jd|How did I get here?');
+			this.add('c|jd|How did I get here?');
 		},
 		secondary: false,
 		target: "self",

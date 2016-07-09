@@ -3372,8 +3372,8 @@ exports.BattleAbilities = {
 		num: -4,
 	},
 	//Custom abilities for wssb
-	//admins + Jd
-	//Jd
+	//admins + jd
+	//jd
 	"imnotstaff": {
 		isNonstandard: true,
 		onStart: function (target) {
