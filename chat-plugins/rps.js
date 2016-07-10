@@ -1,7 +1,7 @@
 /* * * * * * * * * * * *
-*  Rock/Paper/Scissors *
-*  by sparkychild      *
-* * * * * * * * * * * */
+ *  Rock/Paper/Scissors *
+ *  by sparkychild      *
+ * * * * * * * * * * * */
 'use strict';
 
 
@@ -29,7 +29,7 @@ class RPSGame {
 		this.gameId = "RPS-" + Rooms.global.RPS.gameId;
 		this.gameType = gameType;
 		// set inactivity timer
-		this.timer = setTimeout(function () {
+		this.timer = setTimeout(function() {
 			this.onEnd(true);
 		}.bind(this), 60000);
 		this.onInit();
@@ -210,7 +210,7 @@ function updateSearches() {
 		} else {
 			//return bucks if it's a search for bucks
 			if (updatedSearches[userid] === "bucks")
-			Economy.writeMoney(user.userid, 3);
+				Economy.writeMoney(user.userid, 3);
 		}
 	}
 	Rooms.global.RPS.searches = updatedSearches;
@@ -218,35 +218,35 @@ function updateSearches() {
 
 exports.commands = {
 	rps: {
-		search: function (target, room, user) {
+		search: function(target, room, user) {
 			if (user.RPSgame) return this.errorReply("You are already have a game/searching for a game of Rock/Paper/Scissors!");
 			updateSearches();
 			let gameType = "ladder";
 			if (target && target === "bucks") {
-			    Economy.readMoney(user.userid, amount => {
-				if (amount >= 3) {
-					gameType = "bucks";
-					Economy.writeMoney(user.userid, -3);
-				} else {
-					return this.errorReply("You do not have enough bucks (3) to search for a game of Rock/Paper/Scissors for bucks.");
-				}
-			});
+				Economy.readMoney(user.userid, amount => {
+					if (amount >= 3) {
+						gameType = "bucks";
+						Economy.writeMoney(user.userid, -3);
+					} else {
+						return this.errorReply("You do not have enough bucks (3) to search for a game of Rock/Paper/Scissors for bucks.");
+					}
+				});
 			}
 			user.RPSgame = "searching";
 			newSearch(user, gameType);
 			this.sendReply("You are now searching for a game of Rock/Paper/Scissors (" + gameType + ").");
 		},
-		endsearch: function (target, room, user) {
+		endsearch: function(target, room, user) {
 			if (!user.RPSgame || user.RPSgame !== "searching") return this.errorReply("You are not searching for a game of Rock/Paper/Scissors!");
 			updateSearches();
 			if (Rooms.global.RPS.searches[user.userid] === "bucks") {
-			    Economy.writeMoney(user.userid, 3);
+				Economy.writeMoney(user.userid, 3);
 			}
 			delete Rooms.global.RPS.searches[user.userid];
 			user.RPSgame = null;
 			this.sendReply("You have cancelled your search for a game of Rock/Paper/Scissors.");
 		},
-		choose: function (target, room, user) {
+		choose: function(target, room, user) {
 			if (!target || !user.RPSgame) return false;
 			let parts = target.split(" ");
 			if (parts.length !== 2) return false;
@@ -258,28 +258,34 @@ exports.commands = {
 				Rooms.global.RPS.games[gameId].onChoose(user, choice);
 			}
 		},
-		rank: function (target, room, user) {
+		rank: function(target, room, user) {
 			if (!this.runBroadcast()) return false;
 			target = (toId(target) ? (Users.get(target) ? Users.get(target).name : target) : user.name);
 			let userRank = Db('rpsrank').get(toId(target), 1000);
 			this.sendReplyBox(Wisp.nameColor(target, true) + '\'s RPS rank is: ' + userRank);
 		},
-		ladder: function (target, room, user) {
+		ladder: function(target, room, user) {
 			if (!this.runBroadcast()) return false;
-			let keys = Object.keys(Db('rpsrank').object()).map(function (name) {
-				return {name: name, points: Db('rpsrank').get(name)};
+			let keys = Object.keys(Db('rpsrank').object()).map(function(name) {
+				return {
+					name: name,
+					points: Db('rpsrank').get(name)
+				};
 			});
 			if (!keys.length) return this.sendReplyBox("RPS ladder is empty.");
-			keys.sort(function (a, b) { return b.points - a.points; });
+			keys.sort(function(a, b) {
+				return b.points - a.points;
+			});
 			this.sendReplyBox(Wisp.rankLadder('Rock/Paper/Scissors Ladder', 'RPS Points', keys.slice(0, 100), 'points'));
 		},
 		'': 'help',
-		help: function (target, room, user) {
+		help: function(target, room, user) {
 			this.parse('/help rps');
 		},
 	},
 	rpshelp: ["/rps search (bucks) - searches for a game of Rock/Paper/Scissors either for ladder points or for bucks.",
 		"/rps endsearch - stop searching for a game of Rock/Paper/Scissors.",
 		"/rps rank [user] - shows rank for Rock/Paper/Scissors for either a user or yourself.",
-		"/rps ladder - shows top 100 on the RPS ladder."],
+		"/rps ladder - shows top 100 on the RPS ladder."
+	],
 };
