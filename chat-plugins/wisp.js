@@ -7,7 +7,10 @@ const moment = require('moment');
 const nani = require('nani').init("niisama1-uvake", "llbgsBx3inTdyGizCPMgExBVmQ5fU");
 const Autolinker = require('autolinker');
 
-let amCache = {anime:{}, manga:{}};
+let amCache = {
+	anime: {},
+	manga: {}
+};
 let colorCache = {};
 Wisp.customColors = {};
 let regdateCache = {};
@@ -166,22 +169,137 @@ const polltiers = ['Random Battle', 'Anything Goes', 'Ubers', 'OverUsed', 'Under
 	'RarelyUsed', 'NeverUsed', 'PU', 'LC', 'Random Doubles Battle', 'VGC 2016',
 	'Battle Spot Doubles', 'Random Triples Battle', 'Challenge Cup 1v1', 'Balanced Hackmons',
 	'1v1, Monotype', 'Inverse Battle', 'Almost Any Ability', 'STABmons', 'Hackmons Cup',
-	'[Seasonal]', 'Battle Factory', 'Doubles OU', 'CAP', 'Gen 5 OU', 'Doubles 1v1', 'Random Monotype'];
+	'[Seasonal]', 'Battle Factory', 'Doubles OU', 'CAP', 'Gen 5 OU', 'Doubles 1v1', 'Random Monotype'
+];
 
 const bubbleLetterMap = new Map([
-	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
-	['n', '\u24DD'], ['o', '\u24DE'], ['p', '\u24DF'], ['q', '\u24E0'], ['r', '\u24E1'], ['s', '\u24E2'], ['t', '\u24E3'], ['u', '\u24E4'], ['v', '\u24E5'], ['w', '\u24E6'], ['x', '\u24E7'], ['y', '\u24E8'], ['z', '\u24E9'],
-	['A', '\u24B6'], ['B', '\u24B7'], ['C', '\u24B8'], ['D', '\u24B9'], ['E', '\u24BA'], ['F', '\u24BB'], ['G', '\u24BC'], ['H', '\u24BD'], ['I', '\u24BE'], ['J', '\u24BF'], ['K', '\u24C0'], ['L', '\u24C1'], ['M', '\u24C2'],
-	['N', '\u24C3'], ['O', '\u24C4'], ['P', '\u24C5'], ['Q', '\u24C6'], ['R', '\u24C7'], ['S', '\u24C8'], ['T', '\u24C9'], ['U', '\u24CA'], ['V', '\u24CB'], ['W', '\u24CC'], ['X', '\u24CD'], ['Y', '\u24CE'], ['Z', '\u24CF'],
-	['1', '\u2460'], ['2', '\u2461'], ['3', '\u2462'], ['4', '\u2463'], ['5', '\u2464'], ['6', '\u2465'], ['7', '\u2466'], ['8', '\u2467'], ['9', '\u2468'], ['0', '\u24EA'],
+	['a', '\u24D0'],
+	['b', '\u24D1'],
+	['c', '\u24D2'],
+	['d', '\u24D3'],
+	['e', '\u24D4'],
+	['f', '\u24D5'],
+	['g', '\u24D6'],
+	['h', '\u24D7'],
+	['i', '\u24D8'],
+	['j', '\u24D9'],
+	['k', '\u24DA'],
+	['l', '\u24DB'],
+	['m', '\u24DC'],
+	['n', '\u24DD'],
+	['o', '\u24DE'],
+	['p', '\u24DF'],
+	['q', '\u24E0'],
+	['r', '\u24E1'],
+	['s', '\u24E2'],
+	['t', '\u24E3'],
+	['u', '\u24E4'],
+	['v', '\u24E5'],
+	['w', '\u24E6'],
+	['x', '\u24E7'],
+	['y', '\u24E8'],
+	['z', '\u24E9'],
+	['A', '\u24B6'],
+	['B', '\u24B7'],
+	['C', '\u24B8'],
+	['D', '\u24B9'],
+	['E', '\u24BA'],
+	['F', '\u24BB'],
+	['G', '\u24BC'],
+	['H', '\u24BD'],
+	['I', '\u24BE'],
+	['J', '\u24BF'],
+	['K', '\u24C0'],
+	['L', '\u24C1'],
+	['M', '\u24C2'],
+	['N', '\u24C3'],
+	['O', '\u24C4'],
+	['P', '\u24C5'],
+	['Q', '\u24C6'],
+	['R', '\u24C7'],
+	['S', '\u24C8'],
+	['T', '\u24C9'],
+	['U', '\u24CA'],
+	['V', '\u24CB'],
+	['W', '\u24CC'],
+	['X', '\u24CD'],
+	['Y', '\u24CE'],
+	['Z', '\u24CF'],
+	['1', '\u2460'],
+	['2', '\u2461'],
+	['3', '\u2462'],
+	['4', '\u2463'],
+	['5', '\u2464'],
+	['6', '\u2465'],
+	['7', '\u2466'],
+	['8', '\u2467'],
+	['9', '\u2468'],
+	['0', '\u24EA'],
 ]);
 
 const asciiMap = new Map([
-	['\u24D0', 'a'], ['\u24D1', 'b'], ['\u24D2', 'c'], ['\u24D3', 'd'], ['\u24D4', 'e'], ['\u24D5', 'f'], ['\u24D6', 'g'], ['\u24D7', 'h'], ['\u24D8', 'i'], ['\u24D9', 'j'], ['\u24DA', 'k'], ['\u24DB', 'l'], ['\u24DC', 'm'],
-	['\u24DD', 'n'], ['\u24DE', 'o'], ['\u24DF', 'p'], ['\u24E0', 'q'], ['\u24E1', 'r'], ['\u24E2', 's'], ['\u24E3', 't'], ['\u24E4', 'u'], ['\u24E5', 'v'], ['\u24E6', 'w'], ['\u24E7', 'x'], ['\u24E8', 'y'], ['\u24E9', 'z'],
-	['\u24B6', 'A'], ['\u24B7', 'B'], ['\u24B8', 'C'], ['\u24B9', 'D'], ['\u24BA', 'E'], ['\u24BB', 'F'], ['\u24BC', 'G'], ['\u24BD', 'H'], ['\u24BE', 'I'], ['\u24BF', 'J'], ['\u24C0', 'K'], ['\u24C1', 'L'], ['\u24C2', 'M'],
-	['\u24C3', 'N'], ['\u24C4', 'O'], ['\u24C5', 'P'], ['\u24C6', 'Q'], ['\u24C7', 'R'], ['\u24C8', 'S'], ['\u24C9', 'T'], ['\u24CA', 'U'], ['\u24CB', 'V'], ['\u24CC', 'W'], ['\u24CD', 'X'], ['\u24CE', 'Y'], ['\u24CF', 'Z'],
-	['\u2460', '1'], ['\u2461', '2'], ['\u2462', '3'], ['\u2463', '4'], ['\u2464', '5'], ['\u2465', '6'], ['\u2466', '7'], ['\u2467', '8'], ['\u2468', '9'], ['\u24EA', '0'],
+	['\u24D0', 'a'],
+	['\u24D1', 'b'],
+	['\u24D2', 'c'],
+	['\u24D3', 'd'],
+	['\u24D4', 'e'],
+	['\u24D5', 'f'],
+	['\u24D6', 'g'],
+	['\u24D7', 'h'],
+	['\u24D8', 'i'],
+	['\u24D9', 'j'],
+	['\u24DA', 'k'],
+	['\u24DB', 'l'],
+	['\u24DC', 'm'],
+	['\u24DD', 'n'],
+	['\u24DE', 'o'],
+	['\u24DF', 'p'],
+	['\u24E0', 'q'],
+	['\u24E1', 'r'],
+	['\u24E2', 's'],
+	['\u24E3', 't'],
+	['\u24E4', 'u'],
+	['\u24E5', 'v'],
+	['\u24E6', 'w'],
+	['\u24E7', 'x'],
+	['\u24E8', 'y'],
+	['\u24E9', 'z'],
+	['\u24B6', 'A'],
+	['\u24B7', 'B'],
+	['\u24B8', 'C'],
+	['\u24B9', 'D'],
+	['\u24BA', 'E'],
+	['\u24BB', 'F'],
+	['\u24BC', 'G'],
+	['\u24BD', 'H'],
+	['\u24BE', 'I'],
+	['\u24BF', 'J'],
+	['\u24C0', 'K'],
+	['\u24C1', 'L'],
+	['\u24C2', 'M'],
+	['\u24C3', 'N'],
+	['\u24C4', 'O'],
+	['\u24C5', 'P'],
+	['\u24C6', 'Q'],
+	['\u24C7', 'R'],
+	['\u24C8', 'S'],
+	['\u24C9', 'T'],
+	['\u24CA', 'U'],
+	['\u24CB', 'V'],
+	['\u24CC', 'W'],
+	['\u24CD', 'X'],
+	['\u24CE', 'Y'],
+	['\u24CF', 'Z'],
+	['\u2460', '1'],
+	['\u2461', '2'],
+	['\u2462', '3'],
+	['\u2463', '4'],
+	['\u2464', '5'],
+	['\u2465', '6'],
+	['\u2466', '7'],
+	['\u2467', '8'],
+	['\u2468', '9'],
+	['\u24EA', '0'],
 ]);
 
 const MAX_TELLS = 4;
@@ -189,11 +307,11 @@ const MAX_TELL_LENGTH = 500;
 
 function parseStatus(text, encoding) {
 	if (encoding) {
-		text = text.split('').map(function (char) {
+		text = text.split('').map(function(char) {
 			return bubbleLetterMap.get(char);
 		}).join('');
 	} else {
-		text = text.split('').map(function (char) {
+		text = text.split('').map(function(char) {
 			return asciiMap.get(char);
 		}).join('');
 	}
@@ -202,35 +320,35 @@ function parseStatus(text, encoding) {
 
 exports.commands = {
 	lastseen: 'seen',
-	seen: function (target, room, user) {
+	seen: function(target, room, user) {
 		if (!target) return this.errorReply("Usage: /seen [username] - Show's the last time the user was online.");
 		switch (target) {
-		case '!names':
-		case '!name':
-			if (!this.runBroadcast()) return;
-			Wisp.database.all("SELECT * FROM users WHERE lastSeen NOT NULL", (err, rows) => {
-				this.sendReplyBox("There have been " + rows.length + " user names recorded in this database.");
-				room.update();
-			});
-			break;
-		default:
-			if (!this.runBroadcast()) return;
-			let userid = toId(target);
-			if (userid.length > 18) return this.errorReply("Usernames cannot be over 18 characters.");
-			if (userid.length < 1) return this.errorReply("/seen - Please specify a name.");
-			let userName = '<strong class="username">' + Wisp.nameColor(target, false) + '</strong>';
-			if (userid === user.userid) return this.sendReplyBox(userName + ", have you looked in a mirror lately?");
-			if (Users(target) && Users(target).connected) return this.sendReplyBox(userName + ' is currently <font color="green">online</font>.');
-			Wisp.lastSeen(userid, seen => {
-				if (!seen) return this.sendReplyBox(userName + ' has <font color=\"red\">never</font> been seen online on this server.');
-				this.sendReplyBox(userName + ' was last seen online on ' + moment(seen).format("MMMM Do YYYY, h:mm:ss A") + ' EST. (' + moment(seen).fromNow() + ')');
-				room.update();
-			});
-			break;
+			case '!names':
+			case '!name':
+				if (!this.runBroadcast()) return;
+				Wisp.database.all("SELECT * FROM users WHERE lastSeen NOT NULL", (err, rows) => {
+					this.sendReplyBox("There have been " + rows.length + " user names recorded in this database.");
+					room.update();
+				});
+				break;
+			default:
+				if (!this.runBroadcast()) return;
+				let userid = toId(target);
+				if (userid.length > 18) return this.errorReply("Usernames cannot be over 18 characters.");
+				if (userid.length < 1) return this.errorReply("/seen - Please specify a name.");
+				let userName = '<strong class="username">' + Wisp.nameColor(target, false) + '</strong>';
+				if (userid === user.userid) return this.sendReplyBox(userName + ", have you looked in a mirror lately?");
+				if (Users(target) && Users(target).connected) return this.sendReplyBox(userName + ' is currently <font color="green">online</font>.');
+				Wisp.lastSeen(userid, seen => {
+					if (!seen) return this.sendReplyBox(userName + ' has <font color=\"red\">never</font> been seen online on this server.');
+					this.sendReplyBox(userName + ' was last seen online on ' + moment(seen).format("MMMM Do YYYY, h:mm:ss A") + ' EST. (' + moment(seen).fromNow() + ')');
+					room.update();
+				});
+				break;
 		}
 	},
 
-	regdate: function (target, room, user, connection) {
+	regdate: function(target, room, user, connection) {
 		if (toId(target).length < 1 || toId(target).length > 19) return this.sendReply("Usernames may not be less than one character or longer than 19");
 		if (!this.runBroadcast()) return;
 		Wisp.regdate(target, date => {
@@ -239,7 +357,7 @@ exports.commands = {
 		});
 	},
 
-	tell: function (target, room, user, connection, cmd) {
+	tell: function(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help tell');
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		target = this.splitTarget(target);
@@ -276,7 +394,7 @@ exports.commands = {
 	tellhelp: ['/tell [user], [message] - Leaves a message for an offline user for them to see when they log on next.'],
 
 	def: 'define',
-	define: function (target, room, user) {
+	define: function(target, room, user) {
 		if (!target) return this.sendReply('Usage: /define <word>');
 		target = toId(target);
 		if (target > 50) return this.sendReply('/define <word> - word can not be longer than 50 characters.');
@@ -286,7 +404,7 @@ exports.commands = {
 			host: 'api.wordnik.com',
 			port: 80,
 			path: '/v4/word.json/' + target + '/definitions?limit=3&sourceDictionaries=all' +
-			'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+				'&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
 			method: 'GET',
 		};
 
@@ -316,7 +434,7 @@ exports.commands = {
 
 	u: 'urbandefine',
 	ud: 'urbandefine',
-	urbandefine: function (target, room, user) {
+	urbandefine: function(target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help urbandefine');
 		if (target.toString() > 50) return this.sendReply('Phrase can not be longer than 50 characters.');
@@ -353,13 +471,13 @@ exports.commands = {
 	},
 
 	masspm: 'pmall',
-	pmall: function (target, room, user) {
+	pmall: function(target, room, user) {
 		if (!this.can('pmall')) return false;
 		if (!target) return this.parse('/help pmall');
 
 		let pmName = ' Server PM [Do not reply]';
 
-		Users.users.forEach(function (user) {
+		Users.users.forEach(function(user) {
 			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
 			user.send(message);
 		});
@@ -368,13 +486,13 @@ exports.commands = {
 
 	staffpm: 'pmallstaff',
 	pmstaff: 'pmallstaff',
-	pmallstaff: function (target, room, user) {
+	pmallstaff: function(target, room, user) {
 		if (!this.can('forcewin')) return false;
 		if (!target) return this.parse('/help pmallstaff');
 
 		let pmName = ' Staff PM [Do not reply]';
 
-		Users.users.forEach(function (user) {
+		Users.users.forEach(function(user) {
 			if (!user.isStaff) return;
 			let message = '|pm|' + pmName + '|' + user.getIdentity() + '|' + target;
 			user.send(message);
@@ -384,7 +502,7 @@ exports.commands = {
 
 	pmroom: 'rmall',
 	roompm: 'rmall',
-	rmall: function (target, room, user) {
+	rmall: function(target, room, user) {
 		if (!this.can('declare', null, room)) return this.errorReply("/rmall - Access denied.");
 		if (room.id === 'lobby') return this.errorReply("This command cannot be used in Lobby.");
 		if (!target) return this.sendReply("/rmall [message] - Sends a pm to all users in the room.");
@@ -411,7 +529,7 @@ exports.commands = {
 	nerd: 'away',
 	nerding: 'away',
 	mimis: 'away',
-	away: function (target, room, user, connection, cmd) {
+	away: function(target, room, user, connection, cmd) {
 		if (!user.isAway && user.name.length > 19) return this.sendReply("Your username is too long for any kind of use of this command.");
 		if (!this.canTalk()) return false;
 
@@ -446,7 +564,7 @@ exports.commands = {
 	},
 	awayhelp: ["/away [message] - Sets a user's away status."],
 
-	back: function (target, room, user) {
+	back: function(target, room, user) {
 		if (!user.isAway) return this.sendReply("You are not set as away.");
 		user.isAway = false;
 
@@ -471,7 +589,7 @@ exports.commands = {
 	showauth: 'hideauth',
 	show: 'hideauth',
 	hide: 'hideauth',
-	hideauth: function (target, room, user, connection, cmd) {
+	hideauth: function(target, room, user, connection, cmd) {
 		if (!user.can('lock')) return this.sendReply("/hideauth - access denied.");
 		if (cmd === 'show' || cmd === 'showauth') {
 			delete user.hideauth;
@@ -498,7 +616,7 @@ exports.commands = {
 	},
 
 	rpoll: 'roompoll',
-	roompoll: function (target, room, user) {
+	roompoll: function(target, room, user) {
 		if (!target) {
 			if (!this.can('broadcast', null, room) || room.battle) return false;
 			if (!room.RPoll) return this.parse('/help roompoll');
@@ -533,12 +651,13 @@ exports.commands = {
 	},
 	roompollhelp: ["- /roompoll - creates a new roompoll. (Start poll with '/roompoll', display poll with '!pr', end poll with '/endpoll'). Requires: + $ % @ # & ~",
 		"- /roompoll set/change [details] - sets the roompoll. Requires: # & ~",
-		"- /roompoll view - displays the command for the current roompoll. Requires: # & ~"],
+		"- /roompoll view - displays the command for the current roompoll. Requires: # & ~"
+	],
 
 	formatpoll: 'tierpoll',
 	tpoll: 'tierpoll',
 	tierspoll: 'tierpoll',
-	tierpoll: function (target, room, user) {
+	tierpoll: function(target, room, user) {
 		if (room.battle) return false;
 		if (!this.can('broadcast', null, room)) return false;
 		if (room.game && room.id === 'lobby') return this.errorReply("Polls cannot be created in Lobby when there is a room game in progress.");
@@ -547,7 +666,7 @@ exports.commands = {
 
 	clearall: 'clearroom',
 	cleer: 'clearroom',
-	clearroom:  function (target, room, user) {
+	clearroom: function(target, room, user) {
 		if (!this.can('clearroom', null, room)) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 		let len = room.log.length;
@@ -561,7 +680,7 @@ exports.commands = {
 			Users.get(u).leaveRoom(room, Users.get(u).connections[0]);
 		}
 		len = users.length;
-		setTimeout(function () {
+		setTimeout(function() {
 			while (len--) {
 				Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
 			}
@@ -569,7 +688,7 @@ exports.commands = {
 	},
 
 	roomkick: 'kick',
-	kick: function (target, room, user) {
+	kick: function(target, room, user) {
 		if (!target) return this.parse('/help kick');
 		if (!this.canTalk()) return false;
 		target = this.splitTarget(target);
@@ -590,7 +709,7 @@ exports.commands = {
 	unlink: 'breaklinks',
 	breaklink: 'breaklinks',
 	linkbreak: 'breaklinks',
-	breaklinks: function (target, room, user) {
+	breaklinks: function(target, room, user) {
 		if (!target || !target.trim()) return this.parse('/help unlink');
 		let targetUser = Users(target);
 		if (!targetUser) return this.errorReply("User '" + target + "' not found.");
@@ -606,7 +725,7 @@ exports.commands = {
 
 	clearmessages: 'hidetext',
 	clearmsg: 'hidetext',
-	hidetext: function (target, room, user) {
+	hidetext: function(target, room, user) {
 		if (!target) return this.parse('/help hidetext');
 		this.splitTarget(target);
 		let targetUser = this.targetUser;
@@ -632,12 +751,12 @@ exports.commands = {
 		}
 	},
 
-	hex: function (target, room, user) {
+	hex: function(target, room, user) {
 		if (!this.runBroadcast()) return;
 		let targetUser = (target ? target : user.name);
 		this.sendReplyBox('The hex code of ' + Wisp.nameColor(targetUser, true) + ' is: <font color="' + Wisp.hashColor(targetUser) + '"><b>' + Wisp.hashColor(targetUser) + '</b></font>');
 	},
-	anime: function (target, room, user) {
+	anime: function(target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Tools.escapeHTML(target.trim());
@@ -645,37 +764,37 @@ exports.commands = {
 		if (amCache.anime[id]) return this.sendReply('|raw|' + amCache.anime[id]);
 
 		nani.get('anime/search/' + targetAnime)
-		.then(data => {
-			if (data[0].adult) {
-				return this.errorReply('Nsfw content is not allowed.');
-			}
-			nani.get('anime/' + data[0].id)
-				.then(data => {
-					let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
-					let output = '<div class="infobox"><table width="100%"><tr>';
-					let description = data.description.replace(/(\r\n|\n|\r)/gm, "").split('<br><br>').join('<br>');
-					if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
-					if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-					output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
-					output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-					output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Air Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-					output += '<tr><td style="' + css + '"><b>Status: </b>' + data.airing_status + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Episode Count: </b>' + data.total_episodes + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
-					output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
-					output += '</table></div>';
-					amCache.anime[id] = output;
-					this.sendReply('|raw|' + output);
-					room.update();
-				});
-		})
-		.catch(error => {
-			return this.errorReply("Anime not found.");
-		});
+			.then(data => {
+				if (data[0].adult) {
+					return this.errorReply('Nsfw content is not allowed.');
+				}
+				nani.get('anime/' + data[0].id)
+					.then(data => {
+						let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
+						let output = '<div class="infobox"><table width="100%"><tr>';
+						let description = data.description.replace(/(\r\n|\n|\r)/gm, "").split('<br><br>').join('<br>');
+						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
+						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
+						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
+						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
+						output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Air Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
+						output += '<tr><td style="' + css + '"><b>Status: </b>' + data.airing_status + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Episode Count: </b>' + data.total_episodes + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
+						output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
+						output += '</table></div>';
+						amCache.anime[id] = output;
+						this.sendReply('|raw|' + output);
+						room.update();
+					});
+			})
+			.catch(error => {
+				return this.errorReply("Anime not found.");
+			});
 	},
 
-	manga: function (target, room, user) {
+	manga: function(target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.errorReply("No target.");
 		let targetAnime = Tools.escapeHTML(target.trim());
@@ -683,38 +802,38 @@ exports.commands = {
 		if (amCache.anime[id]) return this.sendReply('|raw|' + amCache.anime[id]);
 
 		nani.get('manga/search/' + targetAnime)
-		.then(data => {
-			nani.get('manga/' + data[0].id)
-				.then(data => {
-					let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
-					let output = '<div class="infobox"><table width="100%"><tr>';
-					for (let i = 0; i < data.genres.length; i++) {
-						if (/(Hentai|Yaoi|Ecchi)/.test(data.genres[i])) return this.errorReply('Nsfw content is not allowed.');
-					}
-					let description = data.description.replace(/(\r\n|\n|\r)/gm, " ").split('<br><br>').join('<br>');
-					if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
-					if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
-					output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
-					output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
-					output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Release Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
-					output += '<tr><td style="' + css + '"><b>Status: </b>' + data.publishing_status + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Chapter Count: </b>' + data.total_chapters + '</td></tr>';
-					output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
-					output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
-					output += '</table></div>';
-					amCache.manga[id] = output;
-					this.sendReply('|raw|' + output);
-					room.update();
-				});
-		})
-		.catch(error => {
-			return this.errorReply("Anime not found.");
-		});
+			.then(data => {
+				nani.get('manga/' + data[0].id)
+					.then(data => {
+						let css = 'text-shadow: 1px 1px 1px #CCC; padding: 3px 8px;';
+						let output = '<div class="infobox"><table width="100%"><tr>';
+						for (let i = 0; i < data.genres.length; i++) {
+							if (/(Hentai|Yaoi|Ecchi)/.test(data.genres[i])) return this.errorReply('Nsfw content is not allowed.');
+						}
+						let description = data.description.replace(/(\r\n|\n|\r)/gm, " ").split('<br><br>').join('<br>');
+						if (description.indexOf('&lt;br&gt;&lt;br&gt;') >= 0) description = description.substr(0, description.indexOf('&lt;br&gt;&lt;br&gt;'));
+						if (description.indexOf('<br>') >= 0) description = description.substr(0, description.indexOf('<br>'));
+						output += '<td style="' + css + ' background: rgba(170, 165, 215, 0.5); box-shadow: 2px 2px 5px rgba(170, 165, 215, 0.8); border: 1px solid rgba(170, 165, 215, 1); border-radius: 5px; color: #2D2B40; text-align: center; font-size: 15pt;"><b>' + data.title_romaji + '</b></td>';
+						output += '<td rowspan="6"><img src="' + data.image_url_lge + '" height="320" width="225" alt="' + data.title_romaji + '" title="' + data.title_romaji + '" style="float: right; border-radius: 10px; box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.5) inset;" /></td></tr>';
+						output += '<tr><td style="' + css + '"><b>Genre(s): </b>' + data.genres + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Release Date: </b>' + data.start_date.substr(0, 10) + '</td></tr><tr>';
+						output += '<tr><td style="' + css + '"><b>Status: </b>' + data.publishing_status + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Chapter Count: </b>' + data.total_chapters + '</td></tr>';
+						output += '<tr><td style="' + css + '"><b>Rating: </b> ' + data.average_score + '/100</td></tr>';
+						output += '<tr><td colspan="2" style="' + css + '"><b>Description: </b>' + description + '</td></tr>';
+						output += '</table></div>';
+						amCache.manga[id] = output;
+						this.sendReply('|raw|' + output);
+						room.update();
+					});
+			})
+			.catch(error => {
+				return this.errorReply("Anime not found.");
+			});
 	},
 
 	fcadd: 'friendcodeadd',
-	friendcodeadd: function (target, room, user) {
+	friendcodeadd: function(target, room, user) {
 		if (!target) return this.errorReply("Invalid command. Valid commands are `/friendcodeadd code` and `/friendcoderemove`.");
 		let fc = Tools.escapeHTML(target.trim());
 		let reg = /^\d{4}-\d{4}-\d{4}$/;
@@ -726,13 +845,13 @@ exports.commands = {
 	fcrmv: 'friendcoderemove',
 	fcdelete: 'friendcoderemove',
 	friendcodecdelete: 'friendcoderemove',
-	friendcoderemove: function (target, room, user) {
+	friendcoderemove: function(target, room, user) {
 		if (!Db('friendcodes').has(toId(user))) return this.errorReply("You do not have a friendcode.");
 		Db('friendcodes').delete(toId(user));
 		this.sendReply("Friendcode removed.");
 	},
 
-	togglegdeclares: function (target, room, user) {
+	togglegdeclares: function(target, room, user) {
 		if (!this.can('declare', null, room)) return false;
 		if (room.isOfficial && this.can('gdeclare')) return this.errorReply("Only global leaders may toggle global declares in official rooms.");
 		if (!room.chatRoomData) return this.errorReply("You can't toggle global declares in this room.");
@@ -743,27 +862,27 @@ exports.commands = {
 		this.privateModCommand("(" + user.name + " has " + (status ? "disabled" : "enabled") + " global declares in this room.)");
 	},
 
-	etour: function (target, room, user) {
+	etour: function(target, room, user) {
 		if (!target) return this.parse("/help etour");
 		this.parse("/tour create " + target + ", elimination");
 	},
 	etourhelp: ["/etour [format] - Creates an elimination tournament."],
 
-	endpoll: function (target, room, user) {
+	endpoll: function(target, room, user) {
 		this.parse("/poll end");
 	},
 
-	votes: function (target, room, user) {
+	votes: function(target, room, user) {
 		if (!room.poll) return this.errorReply("There is no poll running in this room.");
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox("votes: " + room.poll.totalVotes);
 	},
 
-	endtour: function (target, room, user) {
+	endtour: function(target, room, user) {
 		this.parse("/tour end");
 	},
 
-	title: function (target, room, user) {
+	title: function(target, room, user) {
 		if (!target) return this.parse("/help title");
 		let targets = target.split(',');
 		for (let u in targets) targets[u] = targets[u].trim();
@@ -775,53 +894,53 @@ exports.commands = {
 		if (targets[3]) hex = targets[3];
 
 		switch (toId(cmd)) {
-		case "set":
-			if (!this.can('title')) return false;
-			if (!targets[2]) return this.parse("/help title");
-			if (!Users(targetUser)) return this.errorReply('"' + targetUser + '" is not online.');
-			if (title.length < 1) return this.errorReply("Title must be at least one character long.");
-			if (title.length > 25) return this.errorReply("Titles may not be longer than 25 characters.");
-			if (hex && hex.length > 7) return this.errorReply("The hex may not be longer than 7 characters (including #).");
-			title = '<font color="#' + ((hex && hex.length > 1) ? toId(hex) : 'b30000') + '"><b>' + Tools.escapeHTML(title) + '</b></font>';
-			Wisp.setTitle(targetUser, title);
-			if (Users(targetUser).connected) Users(targetUser).popup("|html|" + Wisp.nameColor(user.name) + " has set your user title to \"" + title + "\".");
-			this.sendReply("|raw|You've set " + Wisp.nameColor(targetUser) + "'s title to \"" + title + "\".");
-			Rooms('upperstaff').add("|raw|" + Wisp.nameColor(user.name, true) + " has set " + Wisp.nameColor(targetUser, true) + "'s user title to " + title + ".").update();
-			Wisp.messageSeniorStaff("/html " + Wisp.nameColor(user.name, true) + " has set " + Wisp.nameColor(targetUser, true) + "'s user title to " + title + ".");
-			break;
-		case "delete":
-			if (!this.can('title')) return false;
-			if (!targets[1]) return this.parse("/help title");
-			Wisp.getTitle(targetUser, title => {
-				if (title === "") return this.sendReply(targetUser + " does not have a title.");
-				Wisp.setTitle(targetUser, "", () => {
-					if (Users(targetUser) && Users(targetUser).connected) Users(targetUser).popup("|html|" + Wisp.nameColor(user.name) + " has removed your user title.");
-					this.sendReply("You have removed " + targetUser + "'s user title.");
-					Rooms('upperstaff').add("|raw|" + Wisp.nameColor(user.name, true) + " has removed " + Wisp.nameColor(targetUser, true) + "'s user title.").update();
-					Wisp.messageSeniorStaff("/html " + Wisp.nameColor(user.name, true) + " has removed " + Wisp.nameColor(targetUser, true) + "'s user title.");
+			case "set":
+				if (!this.can('title')) return false;
+				if (!targets[2]) return this.parse("/help title");
+				if (!Users(targetUser)) return this.errorReply('"' + targetUser + '" is not online.');
+				if (title.length < 1) return this.errorReply("Title must be at least one character long.");
+				if (title.length > 25) return this.errorReply("Titles may not be longer than 25 characters.");
+				if (hex && hex.length > 7) return this.errorReply("The hex may not be longer than 7 characters (including #).");
+				title = '<font color="#' + ((hex && hex.length > 1) ? toId(hex) : 'b30000') + '"><b>' + Tools.escapeHTML(title) + '</b></font>';
+				Wisp.setTitle(targetUser, title);
+				if (Users(targetUser).connected) Users(targetUser).popup("|html|" + Wisp.nameColor(user.name) + " has set your user title to \"" + title + "\".");
+				this.sendReply("|raw|You've set " + Wisp.nameColor(targetUser) + "'s title to \"" + title + "\".");
+				Rooms('upperstaff').add("|raw|" + Wisp.nameColor(user.name, true) + " has set " + Wisp.nameColor(targetUser, true) + "'s user title to " + title + ".").update();
+				Wisp.messageSeniorStaff("/html " + Wisp.nameColor(user.name, true) + " has set " + Wisp.nameColor(targetUser, true) + "'s user title to " + title + ".");
+				break;
+			case "delete":
+				if (!this.can('title')) return false;
+				if (!targets[1]) return this.parse("/help title");
+				Wisp.getTitle(targetUser, title => {
+					if (title === "") return this.sendReply(targetUser + " does not have a title.");
+					Wisp.setTitle(targetUser, "", () => {
+						if (Users(targetUser) && Users(targetUser).connected) Users(targetUser).popup("|html|" + Wisp.nameColor(user.name) + " has removed your user title.");
+						this.sendReply("You have removed " + targetUser + "'s user title.");
+						Rooms('upperstaff').add("|raw|" + Wisp.nameColor(user.name, true) + " has removed " + Wisp.nameColor(targetUser, true) + "'s user title.").update();
+						Wisp.messageSeniorStaff("/html " + Wisp.nameColor(user.name, true) + " has removed " + Wisp.nameColor(targetUser, true) + "'s user title.");
+					});
 				});
-			});
-			break;
-		case "view":
-			if (!targets[1]) return this.parse("/help title");
-			if (!this.runBroadcast()) return;
-			Wisp.getTitle(targetUser, title => {
-				if (title === "") {
-					this.sendReplyBox(Wisp.nameColor(targetUser, true) + " does not have a title.");
-				} else {
-					this.sendReplyBox(Wisp.nameColor(targetUser, true) + "'s user title is \"" + title + "\".");
-				}
-				room.update();
-			});
-			break;
+				break;
+			case "view":
+				if (!targets[1]) return this.parse("/help title");
+				if (!this.runBroadcast()) return;
+				Wisp.getTitle(targetUser, title => {
+					if (title === "") {
+						this.sendReplyBox(Wisp.nameColor(targetUser, true) + " does not have a title.");
+					} else {
+						this.sendReplyBox(Wisp.nameColor(targetUser, true) + "'s user title is \"" + title + "\".");
+					}
+					room.update();
+				});
+				break;
 		}
 	},
 	titlehelp: ["/title set, user, title - Sets a title.",
-				"/title delete, user - Deletes a users title.",
-				"/title view, user - Shows a users title [broadcastable]",
-			],
+		"/title delete, user - Deletes a users title.",
+		"/title view, user - Shows a users title [broadcastable]",
+	],
 
-	advertise: function (target, room, user, connection) {
+	advertise: function(target, room, user, connection) {
 		if (room.id !== 'lobby') return this.sendReply("This command only works in the lobby.");
 		if (!target) return this.sendReply("Usage: /advertise [message] - Adds an advertisement to the advertisement queue.");
 		if (target.length > 250) return this.sendReply("Advertisements may not be longer than 250 characters.");
@@ -864,8 +983,8 @@ exports.commands = {
 		return this.sendReply("Your message has been added to the advertisement queue. It will be broadcast in the lobby shortly.");
 	},
 
-	crashlogs: function (target, room, user) {
-		if (!this.can('hotpatch') && user.userid !== 'panpawn' && user.userid !== 'silveee') return false;
+	crashlogs: function(target, room, user) {
+		if (!this.can('hotpatch')) return false;
 		if (target) {
 			target = Number(target);
 			if (isNaN(target)) return this.parse('/help crashlogs');
@@ -880,20 +999,20 @@ exports.commands = {
 	automod: 'autorank',
 	autoowner: 'autorank',
 	autopromote: 'autorank',
-	autorank: function (target, room, user, connection, cmd) {
+	autorank: function(target, room, user, connection, cmd) {
 		switch (cmd) {
-		case 'autovoice':
-			target = '+';
-			break;
-		case 'autodriver':
-			target = '%';
-			break;
-		case 'automod':
-			target = '@';
-			break;
-		case 'autoowner':
-			target = '#';
-			break;
+			case 'autovoice':
+				target = '+';
+				break;
+			case 'autodriver':
+				target = '%';
+				break;
+			case 'automod':
+				target = '@';
+				break;
+			case 'autoowner':
+				target = '#';
+				break;
 		}
 
 		if (!target) return this.sendReply("Usage: /autorank [rank] - Automatically promotes user to the specified rank when they join the room.");
@@ -921,7 +1040,7 @@ exports.commands = {
 	},
 
 	clearroomstaff: 'clearroomauth',
-	clearroomauth: function (target, room, user) {
+	clearroomauth: function(target, room, user) {
 		if (!room.founder && user.group !== '~') return this.sendReply('/clearroomauth - Access denied.');
 		if (room.founder !== user.userid && !user.can('seniorstaff')) return this.sendReply('/clearroomauth - Access denied.');
 		if (!room.chatRoomData) return this.sendReply('This room isn\'t registered.');
@@ -954,7 +1073,7 @@ exports.commands = {
 		'/clearroomauth [rank] - Clears the room auth list of users with the rank specified.',
 	],
 
-	roomlist: function (target, room, user) {
+	roomlist: function(target, room, user) {
 		if (!this.can('seniorstaff')) return;
 		let totalUsers = 0;
 		for (let u of Users.users) {
@@ -999,7 +1118,7 @@ exports.commands = {
 };
 
 Object.assign(Wisp, {
-	hashColor: function (name) {
+	hashColor: function(name) {
 		name = toId(name);
 		if (mainColors[name]) name = mainColors[name];
 		if (Wisp.customColors[name]) return Wisp.customColors[name];
@@ -1015,12 +1134,37 @@ Object.assign(Wisp, {
 
 		let R1, G1, B1;
 		switch (Math.floor(H / 60)) {
-		case 1: R1 = X; G1 = C; B1 = 0; break;
-		case 2: R1 = 0; G1 = C; B1 = X; break;
-		case 3: R1 = 0; G1 = X; B1 = C; break;
-		case 4: R1 = X; G1 = 0; B1 = C; break;
-		case 5: R1 = C; G1 = 0; B1 = X; break;
-		case 0: default: R1 = C; G1 = X; B1 = 0; break;
+			case 1:
+				R1 = X;
+				G1 = C;
+				B1 = 0;
+				break;
+			case 2:
+				R1 = 0;
+				G1 = C;
+				B1 = X;
+				break;
+			case 3:
+				R1 = 0;
+				G1 = X;
+				B1 = C;
+				break;
+			case 4:
+				R1 = X;
+				G1 = 0;
+				B1 = C;
+				break;
+			case 5:
+				R1 = C;
+				G1 = 0;
+				B1 = X;
+				break;
+			case 0:
+			default:
+				R1 = C;
+				G1 = X;
+				B1 = 0;
+				break;
 		}
 		let lum = (R1 + m) * 0.2126 + (G1 + m) * 0.7152 + (B1 + m) * 0.0722; // 0.05 (dark blue) to 0.93 (yellow)
 		let HLmod = (lum - 0.5) * -100; // -43 (yellow) to 45 (dark blue)
@@ -1042,7 +1186,7 @@ Object.assign(Wisp, {
 		return colorCache[name];
 	},
 
-	hslToRgb: function (h, s, l) {
+	hslToRgb: function(h, s, l) {
 		let r, g, b, m, c, x;
 
 		if (!isFinite(h)) h = 0;
@@ -1097,11 +1241,11 @@ Object.assign(Wisp, {
 		};
 	},
 
-	rgbToHex: function (R, G, B) {
+	rgbToHex: function(R, G, B) {
 		return this.toHex(R) + this.toHex(G) + this.toHex(B);
 	},
 
-	toHex: function (N) {
+	toHex: function(N) {
 		if (N === null) return "00";
 		N = parseInt(N);
 		if (N === 0 || isNaN(N)) return "00";
@@ -1111,13 +1255,13 @@ Object.assign(Wisp, {
 		return "0123456789ABCDEF".charAt((N - N % 16) / 16) + "0123456789ABCDEF".charAt(N % 16);
 	},
 
-	nameColor: function (name, bold) {
+	nameColor: function(name, bold) {
 		return (bold ? "<b>" : "") + "<font color=" + this.hashColor(name) + ">" +
-		(Users(name) && Users(name).connected && Users.getExact(name) ? Tools.escapeHTML(Users.getExact(name).name) : Tools.escapeHTML(name)) +
-		"</font>" + (bold ? "</b>" : "");
+			(Users(name) && Users(name).connected && Users.getExact(name) ? Tools.escapeHTML(Users.getExact(name).name) : Tools.escapeHTML(name)) +
+			"</font>" + (bold ? "</b>" : "");
 	},
 
-	regdate: function (target, callback) {
+	regdate: function(target, callback) {
 		target = toId(target);
 		if (regdateCache[target]) return callback(regdateCache[target]);
 		let options = {
@@ -1126,11 +1270,11 @@ Object.assign(Wisp, {
 			path: '/users/' + target + '.json',
 			method: 'GET',
 		};
-		http.get(options, function (res) {
+		http.get(options, function(res) {
 			let data = '';
-			res.on('data', function (chunk) {
+			res.on('data', function(chunk) {
 				data += chunk;
-			}).on('end', function () {
+			}).on('end', function() {
 				data = JSON.parse(data);
 				let date = data['registertime'];
 				if (date !== 0 && date.toString().length < 13) {
@@ -1147,31 +1291,80 @@ Object.assign(Wisp, {
 		});
 	},
 
-	updateSeen: function (userid) {
+	updateSeen: function(userid) {
 		userid = toId(userid);
 		if (userid.match(/^guest[0-9]/)) return false;
 		let date = Date.now();
-		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {$userid: userid}, function (err, rows) {
+		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {
+			$userid: userid
+		}, function(err, rows) {
 			if (rows.length < 1) {
-				Wisp.database.run("INSERT INTO users(userid, lastSeen) VALUES ($userid, $date)", {$userid: userid, $date: date}, function (err) {
+				Wisp.database.run("INSERT INTO users(userid, lastSeen) VALUES ($userid, $date)", {
+					$userid: userid,
+					$date: date
+				}, function(err) {
 					if (err) return console.log(err);
 				});
 			} else {
-				Wisp.database.run("UPDATE users SET lastSeen=$date WHERE userid=$userid", {$date: date, $userid: userid}, function (err) {
+				Wisp.database.run("UPDATE users SET lastSeen=$date WHERE userid=$userid", {
+					$date: date,
+					$userid: userid
+				}, function(err) {
 					if (err) return console.log(err);
 				});
 			}
 		});
 	},
 
-	lastSeen: function (userid, callback) {
-		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {$userid: userid}, function (err, rows) {
+	lastSeen: function(userid, callback) {
+		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {
+			$userid: userid
+		}, function(err, rows) {
 			if (err) return console.log(err);
 			callback((rows[0] ? rows[0].lastSeen : false));
 		});
 	},
 
-	reloadCSS: function () {
+	rankLadder: function(title, type, array, prop, group) {
+		let groupHeader = group || 'Username';
+		const ladderTitle = '<center><h4><u>' + title + '</u></h4></center>';
+		const thStyle = 'class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+		const tableTop = '<div style="max-height: 310px; overflow-y: scroll;">' +
+			'<table style="width: 100%; border-collapse: collapse;">' +
+			'<tr>' +
+			'<th ' + thStyle + '>Rank</th>' +
+			'<th ' + thStyle + '>' + groupHeader + '</th>' +
+			'<th ' + thStyle + '>' + type + '</th>' +
+			'</tr>';
+		const tableBottom = '</table></div>';
+		const tdStyle = 'class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+		const first = 'class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+		const second = 'class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+		const third = 'class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+		let midColumn;
+		const length = array.length;
+
+		let tableRows = '';
+
+		for (let i = 0; i < length; i++) {
+			if (i === 0) {
+				midColumn = '</td><td ' + first + '>';
+				tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + Wisp.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			} else if (i === 1) {
+				midColumn = '</td><td ' + second + '>';
+				tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + Wisp.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			} else if (i === 2) {
+				midColumn = '</td><td ' + third + '>';
+				tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + Wisp.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			} else {
+				midColumn = '</td><td ' + tdStyle + '>';
+				tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + Wisp.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
+			}
+		}
+		return ladderTitle + tableTop + tableRows + tableBottom;
+	},
+
+	reloadCSS: function() {
 		let options = {
 			host: 'play.pokemonshowdown.com',
 			port: 80,
@@ -1181,7 +1374,7 @@ Object.assign(Wisp, {
 		http.get(options);
 	},
 
-	messageSeniorStaff: function (message) {
+	messageSeniorStaff: function(message) {
 		for (let u in Rooms.rooms['global'].users) {
 			let curUser = Users(u);
 			if (!curUser || !curUser.connected || !curUser.can('seniorstaff')) continue;
@@ -1189,11 +1382,11 @@ Object.assign(Wisp, {
 		}
 	},
 
-	saveAutoJoins: function () {
+	saveAutoJoins: function() {
 		fs.writeFileSync('config/autojoin.json', JSON.stringify(Wisp.autoJoinRooms));
 	},
 
-	getTells: function (user) {
+	getTells: function(user) {
 		let tell = Wisp.tells[user.userid];
 		if (!tell) return;
 		for (let i in tell) {
@@ -1203,25 +1396,35 @@ Object.assign(Wisp, {
 		fs.writeFileSync('config/tells.json', JSON.stringify(Wisp.tells));
 	},
 
-	getTitle: function (userid, callback) {
+	getTitle: function(userid, callback) {
 		if (!callback) return false;
 		userid = toId(userid);
-		Wisp.database.all("SELECT title FROM users WHERE userid=$userid", {$userid: userid}, function (err, rows) {
+		Wisp.database.all("SELECT title FROM users WHERE userid=$userid", {
+			$userid: userid
+		}, function(err, rows) {
 			if (err) return console.log(err);
 			callback(((rows[0] && rows[0].title) ? rows[0].title : ""));
 		});
 	},
 
-	setTitle: function (userid, title, callback) {
+	setTitle: function(userid, title, callback) {
 		userid = toId(userid);
-		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {$userid: userid}, function (err, rows) {
+		Wisp.database.all("SELECT * FROM users WHERE userid=$userid", {
+			$userid: userid
+		}, function(err, rows) {
 			if (rows.length < 1) {
-				Wisp.database.run("INSERT INTO users(userid, title) VALUES ($userid, $title)", {$userid: userid, $title: title}, function (err) {
+				Wisp.database.run("INSERT INTO users(userid, title) VALUES ($userid, $title)", {
+					$userid: userid,
+					$title: title
+				}, function(err) {
 					if (err) return console.log(err);
 					if (callback) return callback();
 				});
 			} else {
-				Wisp.database.run("UPDATE users SET title=$title WHERE userid=$userid", {$title: title, $userid: userid}, function (err) {
+				Wisp.database.run("UPDATE users SET title=$title WHERE userid=$userid", {
+					$title: title,
+					$userid: userid
+				}, function(err) {
 					if (err) return console.log(err);
 					if (callback) return callback();
 				});
@@ -1229,14 +1432,18 @@ Object.assign(Wisp, {
 		});
 	},
 
-	parseMessage: function (message) {
+	parseMessage: function(message) {
 		if (message.substr(0, 5) === "/html") {
 			message = message.substr(5);
 			message = message.replace(/\_\_([^< ](?:[^<]*?[^< ])?)\_\_(?![^<]*?<\/a)/g, '<i>$1</i>'); // italics
 			message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<b>$1</b>'); // bold
 			message = message.replace(/\~\~([^< ](?:[^<]*?[^< ])?)\~\~/g, '<strike>$1</strike>'); // strikethrough
 			message = message.replace(/&lt;&lt;([a-z0-9-]+)&gt;&gt;/g, '&laquo;<a href="/$1" target="_blank">$1</a>&raquo;'); // <<roomid>>
-			message = Autolinker.link(message.replace(/&#x2f;/g, '/'), {stripPrefix: false, phone: false, twitter: false});
+			message = Autolinker.link(message.replace(/&#x2f;/g, '/'), {
+				stripPrefix: false,
+				phone: false,
+				twitter: false
+			});
 			return message;
 		}
 		message = Tools.escapeHTML(message).replace(/&#x2f;/g, '/');
@@ -1244,20 +1451,23 @@ Object.assign(Wisp, {
 		message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<b>$1</b>'); // bold
 		message = message.replace(/\~\~([^< ](?:[^<]*?[^< ])?)\~\~/g, '<strike>$1</strike>'); // strikethrough
 		message = message.replace(/&lt;&lt;([a-z0-9-]+)&gt;&gt;/g, '&laquo;<a href="/$1" target="_blank">$1</a>&raquo;'); // <<roomid>>
-		message = Autolinker.link(message, {stripPrefix: false, phone: false, twitter: false});
+		message = Autolinker.link(message, {
+			stripPrefix: false,
+			phone: false,
+			twitter: false
+		});
 		return message;
-	},
-
-	randomString: function (length) {
-		return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 	},
 });
 
 function queueAdvertisement(message, user, ip) {
-	Advertisements[ip] = {message: message, user: user};
+	Advertisements[ip] = {
+		message: message,
+		user: user
+	};
 }
 if (!Config.advertisementTimer) {
-	Config.advertisementTimer = setInterval(function () {
+	Config.advertisementTimer = setInterval(function() {
 		if (!Object.keys(Advertisements)[0]) return;
 		let ip = Object.keys(Advertisements)[0];
 		let message = Advertisements[ip].message;
@@ -1267,6 +1477,45 @@ if (!Config.advertisementTimer) {
 		delete Advertisements[ip];
 	}, 5 * 60 * 1000);
 	Config.advertisementsLoaded = true;
+}
+
+function rankLadder(title, type, array, prop, group) {
+	let groupHeader = group || 'Username';
+	const ladderTitle = '<center><h4><u>' + title + '</u></h4></center>';
+	const thStyle = 'class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const tableTop = '<div style="max-height: 310px; overflow-y: scroll;">' +
+		'<table style="width: 100%; border-collapse: collapse;">' +
+		'<tr>' +
+		'<th ' + thStyle + '>Rank</th>' +
+		'<th ' + thStyle + '>' + groupHeader + '</th>' +
+		'<th ' + thStyle + '>' + type + '</th>' +
+		'</tr>';
+	const tableBottom = '</table></div>';
+	const tdStyle = 'class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const first = 'class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const second = 'class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	const third = 'class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
+	let midColumn;
+	const length = array.length;
+
+	let tableRows = '';
+
+	for (let i = 0; i < length; i++) {
+		if (i === 0) {
+			midColumn = '</td><td ' + first + '>';
+			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else if (i === 1) {
+			midColumn = '</td><td ' + second + '>';
+			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else if (i === 2) {
+			midColumn = '</td><td ' + third + '>';
+			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		} else {
+			midColumn = '</td><td ' + tdStyle + '>';
+			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + array[i].name + midColumn + array[i][prop] + '</td></tr>';
+		}
+	}
+	return ladderTitle + tableTop + tableRows + tableBottom;
 }
 
 
