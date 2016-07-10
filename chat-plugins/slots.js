@@ -41,20 +41,20 @@ let faces = {
 	},
 };
 
-let faceMatch = function(hexValue) {
+let faceMatch = function (hexValue) {
 	let id = "0123456789abcdef".indexOf(hexValue);
 	return ["ch", "ch", "ch", "ch", "sh", "sh", "sh", "mg", "mg", "pd", "pd", "pi", "pi", "ro", "ro", "sv"][id];
 };
 
-function slotsRolling(user, randNum) {
+function slotsRolling (user, randNum) {
 	return '|uhtml|' + user + randNum + '|' + '<center><div style="display: inline-block; background: #949698; border: 1px solid #000; border-radius: 2px; padding: 5px;"><table style="background: #3C3C3C; margin-right: auto; margin-left: auto; border: 1px solid #000; border-radius: 2px;" cellspacing="8"><tr><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="http://i.imgur.com/iwkVDUN.gif" height="24" width="32"></td><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="http://i.imgur.com/SubPUKp.gif" height="24" width="32"></td><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="http://i.imgur.com/JiIK7RI.gif" height="24" width="32"></td></tr></table></div><img src="http://i.imgur.com/Ry0uzS7.png?3"></center>';
 }
 
-function slotMachine(user, randNum, roll1, roll2, roll3) {
+function slotMachine (user, randNum, roll1, roll2, roll3) {
 	return '|uhtmlchange|' + user + randNum + '|' + '<center><div style="display: inline-block; background: #949698; border: 1px solid #000; border-radius: 2px; padding: 5px;"><table style="background: #3C3C3C; margin-right: auto; margin-left: auto; border: 1px solid #000; border-radius: 2px;" cellspacing="8"><tr><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="' + roll1 + '" height="24" width="32"></td><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="' + roll2 + '" height="24" width="32"></td><td style="padding-top: 4px; padding-bottom: 4px; border: 1px solid #AF8749; border-radius: 2px; background: -webkit-linear-gradient(#FDFDFD, #D7D7D7); background: -o-linear-gradient(#FDFDFD, #D7D7D7); background: -moz-linear-gradient(#FDFDFD, #D7D7D7); background: linear-gradient(#FDFDFD, #D7D7D7);"><img src="' + roll3 + '" height="24" width="32"></td></tr></table></div><img src="http://i.imgur.com/Ry0uzS7.png?3"></center>';
 }
 
-function parseRoll(array) {
+function parseRoll (array) {
 	let details = {};
 	for (let i = 0; i < array.length; i++) {
 		let tId = array[i];
@@ -82,11 +82,11 @@ function parseRoll(array) {
 exports.commands = {
 	slots: {
 		help: 'info',
-		info: function(target, room, user) {
+		info: function (target, room, user) {
 			this.parse('/help slots');
 		},
 		start: 'roll',
-		roll: function(target, room, user) {
+		roll: function (target, room, user) {
 			if (room.id !== 'casino') return this.errorReply("Slots must be played in Casino Rooms.");
 			Economy.readMoney(user.userid, money => {
 				if (room.slotsAnte > money) return this.errorReply("You do not have enough bucks to play slots.");
@@ -159,14 +159,14 @@ exports.commands = {
 			}, 3000);
 		},
 
-		enable: function(target, room, user, cmd) {
+		enable: function (target, room, user, cmd) {
 			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('makechatroom')) return this.errorReply("/slots enable - Access denied.");
 			room.slotsEnabled = true;
 			this.sendReply("Slots has been enabled.");
 		},
 
-		disable: function(target, room, user, cmd) {
+		disable: function (target, room, user, cmd) {
 
 			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('makechatroom')) return this.errorReply("/slots disable - Access denied.");
@@ -175,7 +175,7 @@ exports.commands = {
 			this.sendReply("Slots has been disabled.");
 		},
 
-		ante: function(target, room, user) {
+		ante: function (target, room, user) {
 			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('hotpatch')) return this.errorReply("/slots ante - Access denied.");
 			if (!target) return this.parse('/help slotsante');
@@ -197,6 +197,6 @@ exports.commands = {
 		"/slots enable - Enable the playing of slots. Requires: ~",
 		"/slots disable - Disable the playing of slots. Requires: ~",
 		"/slots ante - Sets the ante for playing slots. Requires: ~",
-		"/slots roll - Pay the ante and play a game of slots."
+		"/slots roll - Pay the ante and play a game of slots.",
 	],
 };
