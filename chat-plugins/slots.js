@@ -1,7 +1,6 @@
 /*
-*Credits: PTIL-Samuels & fender
-*/
-
+ *Credits: PTIL-Samuels & fender
+ */
 'use strict';
 
 let faces = {
@@ -42,7 +41,7 @@ let faces = {
 	},
 };
 
-let faceMatch = function (hexValue) {
+let faceMatch = function(hexValue) {
 	let id = "0123456789abcdef".indexOf(hexValue);
 	return ["ch", "ch", "ch", "ch", "sh", "sh", "sh", "mg", "mg", "pd", "pd", "pi", "pi", "ro", "ro", "sv"][id];
 };
@@ -82,16 +81,16 @@ function parseRoll(array) {
 }
 exports.commands = {
 	slots: {
-	    help: 'info',
-	    info: function (target, room, user) {
-	        this.parse('/help slots')
-	    },
+		help: 'info',
+		info: function(target, room, user) {
+			this.parse('/help slots')
+		},
 		start: 'roll',
-		roll: function (target, room, user) {
+		roll: function(target, room, user) {
 			if (room.id !== 'casino') return this.errorReply("Slots must be played in Casino Rooms.");
-		    Economy.readMoney(user.userid, money => {			
-			    if (room.slotsAnte > money) return this.errorReply("You do not have enough bucks to play slots.");
-		    });			
+			Economy.readMoney(user.userid, money => {
+				if (room.slotsAnte > money) return this.errorReply("You do not have enough bucks to play slots.");
+			});
 			if (room.slotsEnabled === false) return this.errorReply("Slots is currently disabled.");
 			if (user.isRolling) return this.errorReply("Wait till your previous roll finishes to roll again");
 			return;
@@ -107,7 +106,7 @@ exports.commands = {
 			rollId = "000".slice(rollId.length) + rollId;
 			let rollFaces = [];
 			let rolls = [];
-			rollId.split("").forEach(function (f) {
+			rollId.split("").forEach(function(f) {
 				rollFaces.push(faceMatch(f));
 				rolls.push(faces[faceMatch(f)].img);
 			}); //returns a character for each;
@@ -122,7 +121,7 @@ exports.commands = {
 			//get details on roll
 			let rollDetails = parseRoll(rollFaces);
 
-			setTimeout(function () {
+			setTimeout(function() {
 				let win, winnings;
 				user.sendTo(room, display);
 				//odds for 2 in a row; fuck cherries they're too popular xD
@@ -146,29 +145,29 @@ exports.commands = {
 				} else {
 					user.isRolling = false;
 					Economy.readMoney(user.userid, amount => {
-					return user.sendTo(room, "Better luck next time! " + Wisp.nameColor(user.userid) + " Now you have " + amount);
+						return user.sendTo(room, "Better luck next time! " + Wisp.nameColor(user.userid) + " Now you have " + amount);
 					});
 				}
 				if (win) {
 					user.isRolling = false;
 					Economy.readMoney(user.userid, money => {
-					Economy.writeMoney(user.userid, winings);
-					Economy.logTransaction(user + " won " + winnings + " from the slots.");
-					return user.sendTo(room, "You have won " + winnings + " from the game of Slots. Now you have " + money);
+						Economy.writeMoney(user.userid, winings);
+						Economy.logTransaction(user + " won " + winnings + " from the slots.");
+						return user.sendTo(room, "You have won " + winnings + " from the game of Slots. Now you have " + money);
 					});
 				}
 			}, 3000);
 		},
 
-		enable: function (target, room, user, cmd) {
-			if (room.id !== 'casino' && !~developers.indexOf(this.userid)) return this.errorReply("Can only be used in Casino.");
+		enable: function(target, room, user, cmd) {
+			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('makechatroom')) return this.errorReply("/slots enable - Access denied.");
 			room.slotsEnabled = true;
 			this.sendReply("Slots has been enabled.");
 		},
 
-		disable: function (target, room, user, cmd) {
-			
+		disable: function(target, room, user, cmd) {
+
 			if (room.id !== 'casino' && !~developers.indexOf(this.userid)) return this.errorReply("Can only be used in Casino.");
 			if (!user.can('makechatroom')) return this.errorReply("/slots disable - Access denied.");
 			room.slotsEnabled = false;
@@ -176,7 +175,7 @@ exports.commands = {
 			this.sendReply("Slots has been disabled.");
 		},
 
-		ante: function (target, room, user) {
+		ante: function(target, room, user) {
 			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('hotpatch')) return this.errorReply("/slots ante - Access denied.");
 			if (!target) return this.parse('/help slotsante');
@@ -198,5 +197,6 @@ exports.commands = {
 		"/slots enable - Enable the playing of slots. Requires: ~",
 		"/slots disable - Disable the playing of slots. Requires: ~",
 		"/slots ante - Sets the ante for playing slots. Requires: ~",
-		"/slots roll - Pay the ante and play a game of slots."],
+		"/slots roll - Pay the ante and play a game of slots."
+	],
 };
