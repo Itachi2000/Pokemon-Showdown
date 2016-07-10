@@ -83,7 +83,7 @@ exports.commands = {
 	slots: {
 		help: 'info',
 		info: function(target, room, user) {
-			this.parse('/help slots')
+			this.parse('/help slots');
 		},
 		start: 'roll',
 		roll: function(target, room, user) {
@@ -168,7 +168,7 @@ exports.commands = {
 
 		disable: function(target, room, user, cmd) {
 
-			if (room.id !== 'casino' && !~developers.indexOf(this.userid)) return this.errorReply("Can only be used in Casino.");
+			if (room.id !== 'casino') return this.errorReply("Can only be used in Casino.");
 			if (!user.can('makechatroom')) return this.errorReply("/slots disable - Access denied.");
 			room.slotsEnabled = false;
 			if (room.chatRoomData) Rooms.global.writeChatRoomData();
