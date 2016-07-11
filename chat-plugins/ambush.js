@@ -58,7 +58,7 @@ class Ambush {
 	}
 	getMsg() {
 		let msg = 'ambush' + this.room.ambushCount + this.round + '|<div class = "infobox"><center><b>Round ' + this.round + '</b><br>' +
-			'Players: ' + this.getSurvivors().map(player => Tools.escapeHTML(player[0].name)).join(', ') +
+			'Players: ' + this.getSurvivors().map(player => Wisp.nameColor(player[0].name, true)).join(', ') +
 			'<br><small>Use /fire [player] to shoot another player!</small>';
 		return msg;
 	}
@@ -94,9 +94,9 @@ class Ambush {
 		if (!getUser.rounds) return self.sendReply("You're out of rounds! You can't shoot anyone else!");
 
 		let targetUser = Users(target);
-		if (!targetUser) return self.sendReply('User ' + target + ' not found.');
-		if (!this.players.has(targetUser)) return self.sendReply(targetUser.name + ' is not a player!');
-		if (this.players.get(targetUser).status === 'dead') return self.sendReply(targetUser.name + ' has already been shot!');
+		if (!targetUser) return self.sendReply('User ' + Wisp.nameColor(target, true) + ' not found.');
+		if (!this.players.has(targetUser)) return self.sendReply(Wisp.nameColor(targetUser.name, true) + ' is not a player!');
+		if (this.players.get(targetUser).status === 'dead') return self.sendReply(Wisp.nameColor(targetUser.name, true) + ' has already been shot!');
 		if (!this.canShoot) {
 			if (targetUser === user) return self.sendReply("You're not allowed to open fire yet!");
 			if (getUser.warnings < 2) {
@@ -114,10 +114,10 @@ class Ambush {
 		if (targetUser === user) {
 			this.room.add('|html|<b>' + user.name + ' shot themself!</b>');
 		} else if (this.players.get(targetUser).shield) {
-			this.room.add('|html|<b>' + Tools.escapeHTML(user.name) + ' fired at ' + Tools.escapeHTML(targetUser.name) + ', but ' + Tools.escapeHTML(targetUser.name) + ' has an active shield!</b>');
+			this.room.add('|html|<b>' + Wisp.nameColor(user.name, false) + ' fired at ' + Wisp.nameColor(targetUser.name, false) + ', but ' + Wisp.nameColor(targetUser.name, true) + ' has an active shield!</b>');
 			return;
 		} else {
-			this.room.add('|html|<b>' + Tools.escapeHTML(user.name) + ' fired at ' + Tools.escapeHTML(targetUser.name) + '!</b>');
+			this.room.add('|html|<b>' + Wisp.nameColor(user.name, false) + ' fired at ' + Wisp.nameColor(targetUser.name, false) + '!</b>');
 		}
 		this.players.get(targetUser).status = 'dead';
 		this.players.get(user).shield = true;
@@ -143,11 +143,11 @@ class Ambush {
 	dq(user, target, self) {
 		if (!this.round) return self.sendReply('You can only disqualify a player after the first round has begun.');
 		let targetUser = Users(target);
-		if (!targetUser) return self.sendReply('User ' + target + ' not found.');
+		if (!targetUser) return self.sendReply('User ' + Wisp.nameColor(target, true) + ' not found.');
 
 		let getUser = this.players.get(targetUser);
-		if (!getUser) return self.sendReply(targetUser.name + ' is not a player!');
-		if (getUser.status === 'dead') return self.sendReply(targetUser.name + ' has already been killed!');
+		if (!getUser) return self.sendReply(Wisp.nameColor(targetUser.name, true) + ' is not a player!');
+		if (getUser.status === 'dead') return self.sendReply(Wisp.nameColor(targetUser.name, true) + ' has already been killed!');
 
 		this.removeUser(targetUser);
 		self.privateModCommand("(" + targetUser.name + " was disqualified by " + user.name + ".)");
@@ -157,7 +157,7 @@ class Ambush {
 		if (!this.players.has(user)) return;
 
 		this.players.delete(user);
-		this.room.add('|html|<b>' + Tools.escapeHTML(user.name) + ' has been disqualified from the game.</b>');
+		this.room.add('|html|<b>' + Wisp.nameColor(user.name, false) + ' has been disqualified from the game.</b>');
 		this.madeMove = true;
 		if (this.checkWinner()) {
 			this.getWinner();
@@ -170,9 +170,9 @@ class Ambush {
 	}
 	getWinner() {
 		let winner = this.getSurvivors()[0][0].name;
-		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is <b>' + Tools.escapeHTML(winner) + '!</b> Congratulations!</center>';
+		let msg = '|html|<div class = "infobox"><center>The winner of this game of ambush is <b>' + Wisp.nameColor(winner, true) + '!</b> Congratulations!</center>';
 		if (this.room.id === 'marketplace') {
-			msg += '<center>' + Tools.escapeHTML(winner) + ' has also won <b>5</b> credits for winning!</center>';
+			msg += '<center>' + Wisp.nameColor(winner, true) + ' has also won <b>5</b> credits for winning!</center>';
 			Wisp.writeCredits(winner, 5, () => this.room.add(msg).update());
 		} else {
 			this.room.add(msg).update();
@@ -181,7 +181,7 @@ class Ambush {
 	}
 	end(user) {
 		if (user) {
-			let msg = '<div class = "infobox"><center>This game of ambush has been forcibly ended by <b>' + Tools.escapeHTML(user.name) + '</b></center></div>';
+			let msg = '<div class = "infobox"><center>This game of ambush has been forcibly ended by <b>' + Wisp.nameColor(user.name, true) + '</b></center></div>';
 			if (!this.madeMove) {
 				this.room.add('|uhtmlchange|ambush' + this.room.ambushCount + this.round + '|' + msg).update();
 			} else {
@@ -230,7 +230,7 @@ let commands = {
 
 		if (room.ambush.round) return this.sendReply('This game of ambush has already begun!');
 		if (room.ambush.players.size < 3) return this.sendReply('There aren\'t enough players yet. Wait for more to join!');
-		room.add('(' + user.name + ' forcibly started round 1)');
+		room.add('(' + Wisp.nameColor(user.name, false) + ' forcibly started round 1)');
 		room.ambush.nextRound();
 	},
 	disqualify: 'dq',
