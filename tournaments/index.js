@@ -884,8 +884,8 @@ class Tournament {
 		if (this.room.id === 'marketplace') {
 			let wonCredits = tourSize / 2;
 			wonCredits = Math.round(wonCredits);
+			this.room.add('|raw|<b>' + Wisp.nameColor(winner, false) + ' has also won <font color=#b30000>' + wonCredits + ' credits for winning!</b>');			
 			Wisp.writeCredits(winner, wonCredits);
-			this.room.add('|raw|<b>' + Wisp.nameColor(winner, false) + ' has also won <font color=#b30000>' + wonCredits + ' credits for winning!</b>';			
 		}		
 
 		if (this.room.isOfficial && tourSize >= 4) {
