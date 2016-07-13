@@ -1,6 +1,6 @@
 'use strict';
 /**********************
- * Badges by a weeb for weebs *
+ * Badges by a weeb for weebs 
  **********************/
 
 function badgeImg(link, name) {
